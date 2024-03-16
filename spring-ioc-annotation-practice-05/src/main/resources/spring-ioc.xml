@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 导入外部属性文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+
+    <!-- 配置数据源 -->
+<!--    第三方的类依旧使用bean标签设置-->
+    <!--new DruidDataSource -->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!--value的值跟jdbc.properties有关-->
+        <property name="url" value="${zhouzzz.url}"/>
+        <property name="driverClassName" value="${zhouzzz.driver}"/>
+        <property name="username" value="${zhouzzz.username}"/>
+        <property name="password" value="${zhouzzz.password}"/>
+    </bean>
+
+    <bean class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="druidDataSource" />
+    </bean>
+
+    <!--自己的类型进行注解扫描 扫描Ioc/DI注解 -->
+    <context:component-scan base-package="com.zhouzzz.dao,com.zhouzzz.service,com.zhouzzz.controller" />
+
+</beans>

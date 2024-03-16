@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--    //基于构造函数实例化-->
+    <bean id="happyComponent" class="com.zhouzzz.ioc_01.HappyComponent"/>
+
+
+<!--    //基于静态工厂方法实例化-->
+    <bean id="clientService"
+          class="com.zhouzzz.ioc_01.ClientService"
+          factory-method="createInstance"/>
+
+<!--    //基于实例工厂方法实例化-->
+    <!-- 将工厂类进行ioc配置 -->
+    <bean id="serviceLocator" class="com.zhouzzz.ioc_01.DefaultServiceLocator"></bean>
+
+    <!-- 根据工厂对象的实例工厂方法进行实例化组件对象 -->
+    <bean id="clientService"
+          factory-bean="serviceLocator"
+          factory-method="createClientServiceInstance"/>
+
+</beans>
